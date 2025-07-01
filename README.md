@@ -8,7 +8,7 @@ A RAG (Retrieval-Augmented Generation) chatbot system with user authentication t
 - 📄 Document upload (PDF, CSV, DOCX)
 - 💬 Interactive chat interface
 - 🔍 RAG-based question answering
-- 🗄️ PostgreSQL database for user management
+- 🗄️ SQLite database for user management
 - 🎨 Modern, responsive UI
 
 ## Prerequisites
