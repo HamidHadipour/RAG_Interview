@@ -10,6 +10,7 @@ A RAG (Retrieval-Augmented Generation) chatbot system with user authentication t
 - 🔍 RAG-based question answering
 - 🗄️ SQLite database for user management
 - 🎨 Modern, responsive UI
+- 🗄️ Pinecone Vectore DB
 
 ## Prerequisites
 
