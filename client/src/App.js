@@ -1,85 +1,60 @@
 // src/App.js
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import Login from './components/Login';
+import Register from './components/Register';
+import Chatbot from './components/Chatbot';
 import './App.css';
 
 function App() {
-  const [file, setFile] = useState(null);
-  const [documentTitle, setDocumentTitle] = useState('');
-  const [question, setQuestion] = useState('');
-  const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
+  const [showLogin, setShowLogin] = useState(true);
 
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-  };
-
-  const handleUpload = async () => {
-    if (!file) return;
-    const formData = new FormData();
-    formData.append('file', file);
-    try {
-      const res = await axios.post('http://localhost:5000/api/upload', formData);
-      setDocumentTitle(res.data.filename);
-      setMessages([{ role: 'system', content: 'Document uploaded and ready to chat.' }]);
-    } catch (err) {
-      alert('Upload failed: ' + err.message);
+  useEffect(() => {
+    // Check if user is already logged in
+    const token = localStorage.getItem('token');
+    const userData = localStorage.getItem('user');
+    
+    if (token && userData) {
+      setUser(JSON.parse(userData));
+      setIsAuthenticated(true);
     }
+  }, []);
+
+  const handleLogin = (token, userData) => {
+    setUser(userData);
+    setIsAuthenticated(true);
   };
 
-  const handleAsk = async () => {
-    if (!question) return;
-    setLoading(true);
-    setMessages((prev) => [...prev, { role: 'user', content: question }]);
-    try {
-      const res = await axios.post('http://localhost:5000/api/chat', { question });
-      setMessages((prev) => [...prev, { role: 'assistant', content: res.data.answer }]);
-      setQuestion('');
-    } catch (err) {
-      setMessages((prev) => [...prev, { role: 'assistant', content: 'Error fetching answer.' }]);
-    } finally {
-      setLoading(false);
-    }
+  const handleRegister = (token, userData) => {
+    setUser(userData);
+    setIsAuthenticated(true);
   };
 
-  const handleReset = () => {
-    setFile(null);
-    setDocumentTitle('');
-    setMessages([]);
-    setQuestion('');
+  const handleLogout = () => {
+    setUser(null);
+    setIsAuthenticated(false);
   };
+
+  const switchToRegister = () => {
+    setShowLogin(false);
+  };
+
+  const switchToLogin = () => {
+    setShowLogin(true);
+  };
+
+  if (isAuthenticated && user) {
+    return <Chatbot user={user} onLogout={handleLogout} />;
+  }
 
   return (
     <div className="App">
-      <h1>📄 GenAI Document Chatbot</h1>
-
-      <div className="upload-section">
-        <input type="file" accept=".pdf,.docx,.csv" onChange={handleFileChange} />
-        <button onClick={handleUpload}>Upload</button>
-        <button onClick={handleReset}>Reset</button>
-      </div>
-
-      {documentTitle && <p>📂 File: {documentTitle}</p>}
-
-      <div className="chat-section">
-        <div className="chat-box">
-          {messages.map((msg, i) => (
-            <div key={i} className={msg.role}>
-              <strong>{msg.role === 'user' ? 'You' : msg.role === 'system' ? 'System' : 'Bot'}:</strong> {msg.content}
-            </div>
-          ))}
-        </div>
-        <input
-          type="text"
-          placeholder="Ask a question..."
-          value={question}
-          onChange={(e) => setQuestion(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleAsk()}
-        />
-        <button onClick={handleAsk} disabled={loading}>
-          {loading ? 'Thinking...' : 'Ask'}
-        </button>
-      </div>
+      {showLogin ? (
+        <Login onLogin={handleLogin} onSwitchToRegister={switchToRegister} />
+      ) : (
+        <Register onRegister={handleRegister} onSwitchToLogin={switchToLogin} />
+      )}
     </div>
   );
 }
