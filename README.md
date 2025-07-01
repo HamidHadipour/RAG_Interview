@@ -163,7 +163,12 @@ genai-chatbot-app/
 - Axios (HTTP client)
 - CSS3 (styling)
 
-
+### Limitations
+- cannot read huge files like 100KB in size
+- The database is SQLite, which is just for the demo.
+- It is using GPT3.5-turbo that can be upgraded to production-ready.
+- The model cannot analyze images.
+- The authentication is not aligned with Google, Apple, and Meta logins, plus it's not fully utilized by having services like forget password.  
 
 ## License
 
