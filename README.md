@@ -22,17 +22,12 @@ A RAG (Retrieval-Augmented Generation) chatbot system with user authentication t
 ### 1. Clone the repository
 ```bash
 git clone <repository-url>
-cd genai-chatbot-app
+cd RAG_Interview
 ```
 
-### 2. Set up PostgreSQL Database
 
-Create a new PostgreSQL database:
-```sql
-CREATE DATABASE rag_chatbot;
-```
 
-### 3. Install Dependencies
+### 2. Install Dependencies
 
 Install server dependencies:
 ```bash
@@ -46,7 +41,7 @@ cd ../client
 npm install
 ```
 
-### 4. Environment Configuration
+### 3. Environment Configuration
 
 Create a `.env` file in the `server` directory:
 ```env
@@ -68,7 +63,7 @@ PINECONE_API_KEY=your-pinecone-api-key-here
 PINECONE_ENVIRONMENT=your-pinecone-environment-here
 ```
 
-### 5. Initialize Database
+### 4. Initialize Database
 
 Run the setup script to create the users table:
 ```bash
@@ -158,7 +153,7 @@ genai-chatbot-app/
 ### Backend
 - Node.js
 - Express.js
-- PostgreSQL
+- SQLite
 - bcryptjs (password hashing)
 - jsonwebtoken (JWT)
 - express-fileupload (file handling)
@@ -168,13 +163,7 @@ genai-chatbot-app/
 - Axios (HTTP client)
 - CSS3 (styling)
 
-## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
 
 ## License
 
