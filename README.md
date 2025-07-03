@@ -12,13 +12,13 @@ A RAG (Retrieval-Augmented Generation) chatbot system with user authentication t
 - 🔍 RAG-based question answering
 - 🗄️ SQLite database for user management
 - 🎨 Modern, responsive UI
-- 🗄️ Pinecone Vectore DB
+- 🗄️ Pinecone Vector DB
 
 ## Prerequisites
 
-- Node.js (v14 or higher)
-- PostgreSQL database
-- npm or yarn
+- Node.js (v20 or higher)
+  SQLite (best-sqlite) database
+- npm 
 
 ## Installation
 
@@ -48,19 +48,10 @@ npm install
 
 Create a `.env` file in the `server` directory:
 ```env
-# Database Configuration
-DB_USER=postgres
-DB_HOST=localhost
-DB_NAME=rag_chatbot
-DB_PASSWORD=your_password
-DB_PORT=5432
-
-# JWT Secret
-JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
-
 # OpenAI API Key (if you have one)
 OPENAI_API_KEY=your-openai-api-key-here
-
+# JWT Secret
+JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
 # Pinecone Configuration (if you have one)
 PINECONE_API_KEY=your-pinecone-api-key-here
 PINECONE_ENVIRONMENT=your-pinecone-environment-here
