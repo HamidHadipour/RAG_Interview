@@ -14,16 +14,16 @@ async function queryChroma(query) {
     if (!process.env.OPENAI_API_KEY) {
       return "Document processing is not available. Please configure API keys.";
     }
-    
+
     // Get embedding for the query
     const queryEmbeddingVector = await getEmbedding(query);
-    
+
     // Query Pinecone for similar documents
     const relevantTexts = await queryEmbedding(queryEmbeddingVector, 5);
-    
+
     // Combine relevant texts into context
     const context = relevantTexts.join('\n\n');
-    
+
     return context || "No relevant context found.";
   } catch (error) {
     console.error('Error querying Chroma:', error);
@@ -34,7 +34,9 @@ async function queryChroma(query) {
 // Function to get AI response using OpenAI
 async function askLLM(question, context) {
   try {
-    const prompt = `Based on the following context, please answer the question. If the answer cannot be found in the context, say so.
+    const prompt = `You are a domain-specific assistant. Use the context below to answer the user's question.
+- If context contains conflicting statements or ambiguity (e.g., two people with the same name), ask the user to clarify.
+- If the answer cannot be found in the context, say so.
 
 Context:
 ${context}
@@ -48,9 +50,14 @@ Answer:`;
       messages: [
         {
           role: "system",
-          content: "You are a helpful assistant that answers questions based on the provided context. Always be accurate and concise."
-        },
-        {
+          content: `
+          You are a helpful assistant answering questions based only on the provided sources.
+          - If context has ambiguity (e.g., two people with the same name), ask for clarification.
+          - Do not guess. If no answer is found, say so clearly.
+          - Keep answers factual, concise, and professional.
+            `.trim(),
+        
+        
           role: "user",
           content: prompt
         }
