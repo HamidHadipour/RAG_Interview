@@ -2,8 +2,6 @@
 const axios = require('axios');
 
 const PINECONE_API_KEY = process.env.PINECONE_API_KEY;
-const PINECONE_ENV = process.env.PINECONE_ENVIRONMENT;
-const INDEX_NAME = process.env.PINECONE_INDEX_NAME;
 
 const baseURL = `https://ragtest-puymixx.svc.aped-4627-b74a.pinecone.io`;
 
