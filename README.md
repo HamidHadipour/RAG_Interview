@@ -1,6 +1,8 @@
 # GenAI RAG Chatbot with Authentication
 
 A RAG (Retrieval-Augmented Generation) chatbot system with user authentication that can read CSV, PDF, and text files and answer questions about them.
+## The RAG Architecture
+![GraphBAN](RAG_App.png)
 
 ## Features
 
