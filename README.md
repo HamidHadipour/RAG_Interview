@@ -17,7 +17,7 @@ A RAG (Retrieval-Augmented Generation) chatbot system with user authentication t
 ## Prerequisites
 
 - Node.js (v20 or higher)
-  SQLite (best-sqlite) database
+- SQLite (better-sqlite3) database
 - npm 
 
 ## Installation
